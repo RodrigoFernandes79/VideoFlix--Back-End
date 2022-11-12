@@ -2,6 +2,9 @@ package com.rodrigohf.videoFlix.controllers;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rodrigohf.videoFlix.DTOs.VideoDTO;
 import com.rodrigohf.videoFlix.domains.Video;
 import com.rodrigohf.videoFlix.repositories.VideoFlixRepository;
 import com.rodrigohf.videoFlix.services.VideoFlixService;
@@ -47,16 +51,17 @@ public class VideoFlixController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Video> inserirVideo(@RequestBody Video video){
+	public ResponseEntity<Video> inserirVideo( @Valid @RequestBody Video video){
 		Video obj = videoFlixService.inserirVideo(video);
 		return ResponseEntity.status(HttpStatus.CREATED).body(obj);
 		
 	}
-	
+	@Transactional
 	@PatchMapping("/{id}")
-	public ResponseEntity<Video> atualizarVideo(@PathVariable Long id, @RequestBody Video video){
+	public ResponseEntity<Video> atualizarVideo(@PathVariable Long id,
+			@Valid  @RequestBody VideoDTO videoDto){
 		
-		Video obj = videoFlixService.atualizarVideo(id,video);
+		Video obj = videoFlixService.atualizarVideo(id,videoDto);
 		
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(obj);
 	}

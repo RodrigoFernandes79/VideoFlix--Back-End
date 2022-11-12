@@ -1,11 +1,14 @@
 package com.rodrigohf.videoFlix.exceptions;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -37,5 +40,24 @@ public class ExceptionControllerAdvice {
 		erro.setPath(req.getRequestURI());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ApiException> methodArgumentnotValid(MethodArgumentNotValidException e , 
+			HttpServletRequest req){
+		
+		List<String> getErro = new ArrayList<>();
+		e.getBindingResult().getAllErrors().forEach(erro ->{
+			String obj = erro.getDefaultMessage();
+			getErro.add(obj);
+		});
+		
+		ApiException error = new ApiException();
+		error.setTimestamp(LocalDateTime.now());
+		error.setMessage(getErro.toString());
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
+		error.setPath(req.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
 }
