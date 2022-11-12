@@ -2,6 +2,9 @@ package com.rodrigohf.videoFlix.services;
 
 
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,12 @@ public class VideoFlixService {
 	
 	@Autowired
 	private VideoFlixRepository videoFlixRepository;
+	
+	public List<VideoDTO> buscarVideos() {
+		 List<Video> obj = videoFlixRepository.findAll();
+		 List<VideoDTO> objDto = ConvertToDTO(obj); 
+		return objDto;
+	}
 
 	public Video buscarVideoPorId(Long id) {
 		Video obj = videoFlixRepository.findById(id)
@@ -64,6 +73,14 @@ public class VideoFlixService {
 				.orElseThrow(() -> new EntityNotFoundException("ID "+id+" não encontrado."));
 		
 		 videoFlixRepository.delete(obj);
+		
+	}
+
+	public static List<VideoDTO> ConvertToDTO(List<Video> videos) {
+		
+		List<VideoDTO> videosDTO = videos.stream().map(VideoDTO::new).collect(Collectors.toList());
+		
+		return videosDTO;
 		
 	}
 

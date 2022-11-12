@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.rodrigohf.videoFlix.DTOs.VideoDTO;
 import com.rodrigohf.videoFlix.domains.Video;
-import com.rodrigohf.videoFlix.repositories.VideoFlixRepository;
 import com.rodrigohf.videoFlix.services.VideoFlixService;
 
 
@@ -29,14 +28,13 @@ import com.rodrigohf.videoFlix.services.VideoFlixService;
 @RequestMapping("/videos")
 public class VideoFlixController {
 	
-	@Autowired
-	private VideoFlixRepository videoflixRepository;
+	
 	@Autowired
 	private VideoFlixService videoFlixService;
 	
 	@GetMapping
-	public ResponseEntity<List<Video>> buscarVideos(){
-		List<Video> obj = videoflixRepository.findAll();
+	public ResponseEntity<List<VideoDTO>> buscarVideos(){
+		List<VideoDTO> obj = videoFlixService.buscarVideos();
 		
 		return ResponseEntity.ok().body(obj);
 		

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Categoria {
 	private String titulo;
 	private String cor;
 	@JsonIgnore
-	@OneToMany(mappedBy = "categoria")
+	@OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
 	private Set<Video> videos = new HashSet<>();
 
 	public Categoria(Long id, String titulo, String cor) {

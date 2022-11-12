@@ -11,5 +11,7 @@ public interface VideoFlixRepository extends JpaRepository<Video, Long>{
 	Video findByTituloIgnoreCase(String titulo);
 	
 	Video findByUrlIgnoreCase(String url);
+	
+	
 
 }
