@@ -10,7 +10,7 @@ import com.rodrigohf.videoFlix.repositories.VideoFlixRepository;
 import com.rodrigohf.videoFlix.services.exceptions.DataViolationException;
 import com.rodrigohf.videoFlix.services.exceptions.EntityNotFoundException;
 
-import net.bytebuddy.implementation.bytecode.Throw;
+
 
 @Service
 public class VideoFlixService {
@@ -52,6 +52,15 @@ public class VideoFlixService {
 		return videoObj;
 				 
 		 }).orElseThrow(()-> new EntityNotFoundException("ID "+id+" não encontrado."));
+		
+	}
+
+	public void deletarVideo(Long id) {
+		
+		Video obj = videoFlixRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("ID "+id+" não encontrado."));
+		
+		 videoFlixRepository.delete(obj);
 		
 	}
 
