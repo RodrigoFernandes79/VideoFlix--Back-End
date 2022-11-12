@@ -11,8 +11,6 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.URL;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +26,7 @@ public class Video {
 	private Long id;
 	
 	@NotEmpty(message ="Campo TÍTULO não pode ser vazio")
-	@Column(length = 50)
+	@Column(length = 100)
 	private String titulo;
 	
 	@NotEmpty(message = "O campo DESCRIÇÃO não pode ser vazio.")
