@@ -7,6 +7,8 @@ import com.rodrigohf.videoFlix.domains.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
+
+	
 	
 
 
