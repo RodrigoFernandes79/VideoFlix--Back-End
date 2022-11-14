@@ -3,12 +3,14 @@ package com.rodrigohf.videoFlix.domains;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,7 +25,11 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty(message = "O Campo TÍTULO é obrigatório.")
+	@Column(length = 50)
 	private String titulo;
+	@NotEmpty(message = "O Campo COR é obrigatório.")
+	@Column(length = 20)
 	private String cor;
 	@JsonIgnore
 	@OneToMany(mappedBy = "categoria", fetch = FetchType.LAZY)
