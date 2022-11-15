@@ -1,12 +1,14 @@
 package com.rodrigohf.videoFlix.services;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.rodrigohf.videoFlix.domains.Categoria;
 import com.rodrigohf.videoFlix.repositories.CategoriaRepository;
+
 import com.rodrigohf.videoFlix.services.exceptions.DataViolationException;
 import com.rodrigohf.videoFlix.services.exceptions.EntityNotFoundException;
 
@@ -59,6 +61,23 @@ public class CategoriaService {
 		}).orElseThrow(() -> new EntityNotFoundException("Id "+id+" não encontrado."));
 		
 		
+		
+	}
+
+	public void deletarCategoriaPorId(Long id) {
+		 try {
+			Categoria cat = catRepository.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("Id "+id+" não encontrado."));
+			 
+			
+				 catRepository.delete(cat);
+			 
+		 }catch(DataIntegrityViolationException e) {
+			 
+			 throw new DataIntegrityViolationException(
+					 "Não foi possível deletar. "+id+" possui vídeos associados");
+			 
+		 }
 		
 	}
 	

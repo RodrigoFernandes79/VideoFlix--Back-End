@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 
 import com.rodrigohf.videoFlix.services.exceptions.DataViolationException;
 import com.rodrigohf.videoFlix.services.exceptions.EntityNotFoundException;
@@ -59,5 +61,17 @@ public class ExceptionControllerAdvice {
 		error.setPath(req.getRequestURI());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+	}
+	
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	public ResponseEntity<ApiException> dataIntegrityViolation(DataIntegrityViolationException e , HttpServletRequest req){
+		ApiException erro = new ApiException();
+		erro.setTimestamp(LocalDateTime.now());
+		erro.setMessage(e.getMessage());
+		erro.setStatus(HttpStatus.BAD_REQUEST.value());
+		erro.setPath(req.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
 	}
 }
