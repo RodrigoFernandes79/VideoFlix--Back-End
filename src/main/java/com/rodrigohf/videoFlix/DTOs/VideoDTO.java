@@ -2,11 +2,13 @@ package com.rodrigohf.videoFlix.DTOs;
 
 import com.rodrigohf.videoFlix.domains.Video;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class VideoDTO {
 	

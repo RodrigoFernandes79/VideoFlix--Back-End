@@ -1,6 +1,7 @@
 package com.rodrigohf.videoFlix.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rodrigohf.videoFlix.DTOs.VideoDTO;
 import com.rodrigohf.videoFlix.domains.Categoria;
 import com.rodrigohf.videoFlix.repositories.CategoriaRepository;
 import com.rodrigohf.videoFlix.services.CategoriaService;
@@ -68,5 +70,12 @@ public class CategoriaController {
 	public void deletarCategoriaPorId(@PathVariable Long id) {
 		
 		catService.deletarCategoriaPorId(id);
+	}
+	
+	@GetMapping("/{id}/videos")
+	public ResponseEntity<Set<VideoDTO>> buscarVideoPorCategoriaId(
+			@PathVariable Long id){
+		Set<VideoDTO> objDto = catService.buscarVideoPorCategoriaId(id);
+				return ResponseEntity.ok().body(objDto);
 	}
 }
