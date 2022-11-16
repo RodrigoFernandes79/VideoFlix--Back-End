@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.rodrigohf.videoFlix.DTOs.VideoDTO;
@@ -76,15 +79,29 @@ public class VideoFlixService {
 		
 	}
 
-	public static List<VideoDTO> ConvertToDTO(List<Video> videos) {
+	
+
+	public Page<VideoDTO> buscarVideosPorTitulo(String titulo,
+			Integer page, Integer linesPerPage, String orderBy,
+			String direction) {
+		PageRequest pgRequest = PageRequest.of(page,
+				linesPerPage,
+				Direction.valueOf(direction),
+				orderBy);
+		
+		Page<VideoDTO> videoObj = videoFlixRepository.findByTituloIgnoreCaseContaining(titulo, pgRequest);
+
+		
+		return videoObj;
+	}
+
+public static List<VideoDTO> ConvertToDTO(List<Video> videos) {
 		
 		List<VideoDTO> videosDTO = videos.stream().map(VideoDTO::new).collect(Collectors.toList());
 		
 		return videosDTO;
 		
 	}
-
-	
 	
 	
 
