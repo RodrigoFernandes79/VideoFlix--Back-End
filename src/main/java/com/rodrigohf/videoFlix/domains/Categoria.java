@@ -14,13 +14,18 @@ import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @Entity
 public class Categoria {
+	
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -37,10 +42,33 @@ public class Categoria {
 
 	public Categoria(Long id, String titulo, String cor) {
 		super();
-		this.id = id;
+		this.id =  id;
 		this.titulo = titulo;
 		this.cor = cor;
 	}
+	 
+	
+	
+
+	public String getTitulo() {
+		if(this.id == 1L) {
+			return 	"CATEGORIA_LIVRE";	
+		}
+		return titulo;
+	}
+
+	
+
+	public String getCor() {
+		if(this.id==1L) {
+			return "Orange";
+		}
+		return cor;
+	}
+
+	
+
+	
 	
 	
 

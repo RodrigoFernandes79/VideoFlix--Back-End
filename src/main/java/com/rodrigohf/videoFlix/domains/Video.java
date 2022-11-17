@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.URL;
 
@@ -43,7 +42,7 @@ public class Video {
 	
 	@ManyToOne
 	@JoinColumn(name ="categoria_id")
-	@NotNull(message = "O campo CATEGORIA não pode ser vazio.")
+	//@NotNull(message = "O campo CATEGORIA não pode ser vazio.")
 	private Categoria categoria;
 
 }

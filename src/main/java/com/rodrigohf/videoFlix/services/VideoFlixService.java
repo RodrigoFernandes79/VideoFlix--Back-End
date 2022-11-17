@@ -44,8 +44,13 @@ public class VideoFlixService {
 			throw new DataViolationException("Url "+video.getUrl()+" Já existe no Banco de dados.");
 		}if(findTitulo != null) {
 			throw new DataViolationException("Título "+video.getTitulo()+" Já existe no Banco de dados.");
+		}if(video.getCategoria().getId() == null) {
+			video.getCategoria().setId(1L);
 		}
+		
+		
 		Video obj = videoFlixRepository.save(video);
+		
 		return obj;
 	}
 
@@ -104,5 +109,4 @@ public static List<VideoDTO> ConvertToDTO(List<Video> videos) {
 	}
 	
 	
-
 }
