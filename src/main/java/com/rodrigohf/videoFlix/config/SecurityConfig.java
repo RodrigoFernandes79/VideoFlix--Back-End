@@ -32,8 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(http);
+		//autorização para uma determinada pagina.Quem tem acesso ao quê:
+		http
+		.csrf().disable()
+		.authorizeRequests()
+		.antMatchers("videos/**")
+		.authenticated()
+		.and()
+		.formLogin();
+	
 	}
 	
 	
