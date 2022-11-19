@@ -1,6 +1,7 @@
 package com.rodrigohf.videoFlix.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,8 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 		.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("videos/**")
-		.authenticated()
+		.antMatchers("/videos/**")
+		.hasAnyRole("USER","ADMIN")
+		.antMatchers(HttpMethod.GET,"/categorias/**")
+		.hasAnyRole("USER")
 		.and()
 		.formLogin();
 	
