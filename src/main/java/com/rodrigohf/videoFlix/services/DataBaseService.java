@@ -4,11 +4,14 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.rodrigohf.videoFlix.domains.Categoria;
+import com.rodrigohf.videoFlix.domains.Usuario;
 import com.rodrigohf.videoFlix.domains.Video;
 import com.rodrigohf.videoFlix.repositories.CategoriaRepository;
+import com.rodrigohf.videoFlix.repositories.UsuarioRepository;
 import com.rodrigohf.videoFlix.repositories.VideoFlixRepository;
 
 @Service
@@ -19,8 +22,15 @@ public class DataBaseService {
 
 	@Autowired
 	private CategoriaRepository catRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	public void instanciarDataBaseTestProfile() throws ParseException {
+		
+		Usuario user1 = new Usuario(null,"rodrigohf@hotmail.com","123", false);
+		usuarioRepository.saveAll(Arrays.asList(user1));
+		
 		Categoria cat1 = new Categoria(null, "CATEGORIA_LIVRE", "Orange");
 		Categoria cat2 = new Categoria(null, "Música e Arte", "Black");
 		Categoria cat3 = new Categoria(null, "Esporte e Entretenimento", "Red");

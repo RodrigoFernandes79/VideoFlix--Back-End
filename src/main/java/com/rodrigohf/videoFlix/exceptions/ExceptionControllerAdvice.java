@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.rodrigohf.videoFlix.services.exceptions.DataViolationException;
 import com.rodrigohf.videoFlix.services.exceptions.EntityNotFoundException;
+import com.rodrigohf.videoFlix.services.exceptions.UsernameNotFoundException;
 
 @ControllerAdvice
 public class ExceptionControllerAdvice {
@@ -73,5 +74,17 @@ public class ExceptionControllerAdvice {
 		erro.setPath(req.getRequestURI());
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
+	}
+	
+	@ExceptionHandler(UsernameNotFoundException.class)
+	public ResponseEntity<ApiException> UsernameNotFound(UsernameNotFoundException e, HttpServletRequest req){
+		ApiException erro = new ApiException();
+		erro.setTimestamp(LocalDateTime.now());
+		erro.setMessage(e.getMessage());
+		erro.setStatus(HttpStatus.NOT_FOUND.value());
+		erro.setPath(req.getRequestURI());
+		
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
+		
 	}
 }
