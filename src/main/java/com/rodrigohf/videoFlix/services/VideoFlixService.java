@@ -46,6 +46,8 @@ public class VideoFlixService {
 			throw new DataViolationException("Título "+video.getTitulo()+" Já existe no Banco de dados.");
 		}if(video.getCategoria().getId() == null) {
 			video.getCategoria().setId(1L);
+			video.getCategoria().setTitulo("CATEGORIA_LIVRE");
+			video.getCategoria().setCor("Orange");
 		}
 		
 		

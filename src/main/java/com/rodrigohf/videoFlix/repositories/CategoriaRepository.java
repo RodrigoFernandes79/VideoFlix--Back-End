@@ -8,9 +8,9 @@ import com.rodrigohf.videoFlix.domains.Categoria;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 	
-	Categoria findByTituloContainsIgnoreCase(String titulo);
+	Categoria findByTituloIgnoreCaseContaining(String titulo);
 	
-	Categoria findByCorContainsIgnoreCase(String cor);
+	Categoria findByCorIgnoreCaseContaining(String cor);
 
 	
 	

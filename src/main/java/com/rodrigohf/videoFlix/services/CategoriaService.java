@@ -31,8 +31,8 @@ public class CategoriaService {
 	}
 
 	public Categoria criarCategoria(Categoria categoria) {
-		Categoria findTitulo = catRepository.findByTituloContainsIgnoreCase(categoria.getTitulo());
-		Categoria findCor = catRepository.findByCorContainsIgnoreCase(categoria.getCor());
+		Categoria findTitulo = catRepository.findByTituloIgnoreCaseContaining(categoria.getTitulo());
+		Categoria findCor = catRepository.findByCorIgnoreCaseContaining(categoria.getCor());
 		
 		if(findTitulo != null) {
 			throw new DataViolationException(
@@ -48,8 +48,8 @@ public class CategoriaService {
 	}
 
 	public Categoria atualizarCategoria( Categoria categoria, Long id) {
-		Categoria findTitulo = catRepository.findByTituloContainsIgnoreCase(categoria.getTitulo());
-		Categoria findCor = catRepository.findByCorContainsIgnoreCase(categoria.getCor());
+		Categoria findTitulo = catRepository.findByTituloIgnoreCaseContaining(categoria.getTitulo());
+		Categoria findCor = catRepository.findByCorIgnoreCaseContaining(categoria.getCor());
 		if(findTitulo != null && findTitulo.getId() != id) {
 			throw new DataViolationException(
 					"O Campo "+categoria.getTitulo()+" já existe no Banco de Dados");

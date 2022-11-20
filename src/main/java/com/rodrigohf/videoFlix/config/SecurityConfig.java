@@ -39,10 +39,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/videos/**")
 		.hasAnyRole("USER","ADMIN")
-		.antMatchers(HttpMethod.GET,"/categorias/**")
-		.hasAnyRole("USER")
+		.antMatchers(HttpMethod.GET, "/categorias/**")
+		.hasAnyRole("USER","ADMIN")
+		.antMatchers(HttpMethod.POST,"/categorias/**")
+		.hasRole("ADMIN")
+		.antMatchers(HttpMethod.PUT,"/categorias/**")
+		.hasRole("ADMIN")
+		.antMatchers(HttpMethod.DELETE,"/categorias/**")
+		.hasRole("ADMIN")
 		.and()
-		.formLogin();
+		.httpBasic();
 	
 	}
 	

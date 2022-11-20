@@ -50,22 +50,7 @@ public class Categoria {
 	
 	
 
-	public String getTitulo() {
-		if(this.id == 1L) {
-			return 	"CATEGORIA_LIVRE";	
-		}
-		return titulo;
-	}
-
 	
-
-	public String getCor() {
-		if(this.id==1L) {
-			return "Orange";
-		}
-		return cor;
-	}
-
 	
 
 	
