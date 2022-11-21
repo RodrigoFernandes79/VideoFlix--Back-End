@@ -35,6 +35,11 @@ public class DataBaseService {
 		Usuario user1 = new Usuario(null,"usuarioflix@hotmail.com","123", false);
 		String token = jwtService.gerarTokenJwt(user1);
 		System.out.println("O TOKEN É: "+token);
+		
+		boolean isTokenValido = jwtService.tokenIsValido(token);
+		System.out.println("O TOKEN ESTÁ VÁLIDO "+isTokenValido);
+		System.out.println("O USUÁRIO É "+jwtService.obterLoginUsuario(token));
+		
 		usuarioRepository.saveAll(Arrays.asList(user1));
 		
 		Categoria cat1 = new Categoria(null, "CATEGORIA_LIVRE", "Orange");
