@@ -4,7 +4,8 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rodrigohf.videoFlix.domains.Categoria;
@@ -13,7 +14,6 @@ import com.rodrigohf.videoFlix.domains.Video;
 import com.rodrigohf.videoFlix.repositories.CategoriaRepository;
 import com.rodrigohf.videoFlix.repositories.UsuarioRepository;
 import com.rodrigohf.videoFlix.repositories.VideoFlixRepository;
-import com.rodrigohf.videoFlix.services.security.jwt.JwtService;
 
 @Service
 public class DataBaseService {
@@ -28,17 +28,12 @@ public class DataBaseService {
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
-	private JwtService jwtService;
+	private PasswordEncoder passwordEncoder;
 
 	public void instanciarDataBaseTestProfile() throws ParseException {
 		
-		Usuario user1 = new Usuario(null,"usuarioflix@hotmail.com","123", false);
-		String token = jwtService.gerarTokenJwt(user1);
-		System.out.println("O TOKEN É: "+token);
-		
-		boolean isTokenValido = jwtService.tokenIsValido(token);
-		System.out.println("O TOKEN ESTÁ VÁLIDO "+isTokenValido);
-		System.out.println("O USUÁRIO É "+jwtService.obterLoginUsuario(token));
+		Usuario user1 = new Usuario(null,"usuarioflix@hotmail.com",
+				passwordEncoder.encode("123"), false);
 		
 		usuarioRepository.saveAll(Arrays.asList(user1));
 		

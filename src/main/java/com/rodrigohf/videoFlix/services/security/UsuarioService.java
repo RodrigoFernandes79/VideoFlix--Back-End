@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.rodrigohf.videoFlix.domains.Usuario;
 import com.rodrigohf.videoFlix.repositories.UsuarioRepository;
 import com.rodrigohf.videoFlix.services.exceptions.DataViolationException;
+import com.rodrigohf.videoFlix.services.exceptions.SenhaInvalidaException;
 import com.rodrigohf.videoFlix.services.exceptions.UsernameNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -53,6 +54,16 @@ public class UsuarioService implements UserDetailsService{
 		Usuario obj = usuarioRepository.save(usuario);
 		
 		return obj;
+	}
+	
+	public UserDetails autenticar(Usuario usuario) {
+		UserDetails user = loadUserByUsername(usuario.getEmail());
+		boolean senhasEstaoBatendo = passwordEncoder.matches(usuario.getSenha(), user.getPassword());
+		if(senhasEstaoBatendo) {
+			return user;
+		}else {
+			throw new SenhaInvalidaException();
+		}
 	}
 	
 	
