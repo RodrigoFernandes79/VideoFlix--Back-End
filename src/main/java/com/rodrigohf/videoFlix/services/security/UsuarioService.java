@@ -43,13 +43,11 @@ public class UsuarioService implements UserDetailsService{
 	@Transactional
 	public Usuario salvarUsuario(Usuario usuario) {
 		Usuario findEmail = usuarioRepository.encontrarEmail(usuario.getEmail());
-		Usuario findSenha = usuarioRepository.findBySenha(usuario.getSenha());
+		
 		if(findEmail != null) {
 		throw new DataViolationException("Email "+usuario.getEmail()+" já existe na base de dados");
 	}
-		if(findSenha != null) {
-			throw new DataViolationException("Senha "+usuario.getSenha()+" já existe na base de dados.");
-		}
+		
 		String SenhaBcryptografada = passwordEncoder.encode(usuario.getSenha());
 		usuario.setSenha(SenhaBcryptografada);
 		Usuario obj = usuarioRepository.save(usuario);

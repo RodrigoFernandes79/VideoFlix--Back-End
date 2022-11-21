@@ -13,6 +13,7 @@ import com.rodrigohf.videoFlix.domains.Video;
 import com.rodrigohf.videoFlix.repositories.CategoriaRepository;
 import com.rodrigohf.videoFlix.repositories.UsuarioRepository;
 import com.rodrigohf.videoFlix.repositories.VideoFlixRepository;
+import com.rodrigohf.videoFlix.services.security.JwtService;
 
 @Service
 public class DataBaseService {
@@ -25,10 +26,15 @@ public class DataBaseService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private JwtService jwtService;
 
 	public void instanciarDataBaseTestProfile() throws ParseException {
 		
-		Usuario user1 = new Usuario(null,"rodrigohf@hotmail.com","123", false);
+		Usuario user1 = new Usuario(null,"usuarioflix@hotmail.com","123", false);
+		String token = jwtService.gerarTokenJwt(user1);
+		System.out.println("O TOKEN É: "+token);
 		usuarioRepository.saveAll(Arrays.asList(user1));
 		
 		Categoria cat1 = new Categoria(null, "CATEGORIA_LIVRE", "Orange");
