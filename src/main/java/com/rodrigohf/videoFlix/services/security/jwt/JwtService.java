@@ -1,4 +1,4 @@
-package com.rodrigohf.videoFlix.services.security;
+package com.rodrigohf.videoFlix.services.security.jwt;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

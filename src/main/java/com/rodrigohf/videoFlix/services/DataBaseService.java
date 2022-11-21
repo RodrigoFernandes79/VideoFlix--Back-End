@@ -13,7 +13,7 @@ import com.rodrigohf.videoFlix.domains.Video;
 import com.rodrigohf.videoFlix.repositories.CategoriaRepository;
 import com.rodrigohf.videoFlix.repositories.UsuarioRepository;
 import com.rodrigohf.videoFlix.repositories.VideoFlixRepository;
-import com.rodrigohf.videoFlix.services.security.JwtService;
+import com.rodrigohf.videoFlix.services.security.jwt.JwtService;
 
 @Service
 public class DataBaseService {
