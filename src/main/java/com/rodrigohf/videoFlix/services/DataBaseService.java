@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +31,8 @@ public class DataBaseService {
 
 	public void instanciarDataBaseTestProfile() throws ParseException {
 		
-		Usuario user1 = new Usuario(null,"usuarioflix@hotmail.com",
-				passwordEncoder.encode("123"), false);
+		Usuario user1 = new Usuario(null,"usuarioFlix@email.com",passwordEncoder.encode("Ab0brinh4@"), false);
+		
 		
 		usuarioRepository.saveAll(Arrays.asList(user1));
 		

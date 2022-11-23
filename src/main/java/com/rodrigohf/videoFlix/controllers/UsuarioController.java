@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.rodrigohf.videoFlix.DTOs.CredenciaisDTO;
 import com.rodrigohf.videoFlix.DTOs.TokenDTO;
+import com.rodrigohf.videoFlix.DTOs.UsuarioDTO;
 import com.rodrigohf.videoFlix.domains.Usuario;
 import com.rodrigohf.videoFlix.services.exceptions.SenhaInvalidaException;
 import com.rodrigohf.videoFlix.services.exceptions.UsernameNotFoundException;
@@ -33,7 +34,7 @@ public class UsuarioController {
 	
 	
 	@PostMapping
-	public ResponseEntity<Usuario> salvarSenha(@Valid @RequestBody Usuario usuario){
+	public ResponseEntity<Usuario> salvarSenha(@Valid @RequestBody UsuarioDTO usuario){
 		
 		
 		Usuario obj = usuarioService.salvarUsuario(usuario);
@@ -45,10 +46,12 @@ public class UsuarioController {
 	@PostMapping("/auth")
 	public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais) {
 		try {
+			
 			Usuario usuario = Usuario.builder()
 					.email(credenciais.getEmail())
 					.senha(credenciais.getSenha())
 					.build();
+					
 			
 			UserDetails usuarioAutenticado = usuarioService.autenticar(usuario);
 			
@@ -63,6 +66,6 @@ public class UsuarioController {
 		
 	}
 	
-	
+
 
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.rodrigohf.videoFlix.DTOs.UsuarioDTO;
 import com.rodrigohf.videoFlix.domains.Usuario;
 import com.rodrigohf.videoFlix.repositories.UsuarioRepository;
 import com.rodrigohf.videoFlix.services.exceptions.DataViolationException;
@@ -42,16 +43,17 @@ public class UsuarioService implements UserDetailsService{
 	}
 	
 	@Transactional
-	public Usuario salvarUsuario(Usuario usuario) {
-		Usuario findEmail = usuarioRepository.encontrarEmail(usuario.getEmail());
+	public Usuario salvarUsuario(UsuarioDTO usuarioDto) {
+		Usuario findEmail = usuarioRepository.encontrarEmail(usuarioDto.getEmail());
 		
 		if(findEmail != null) {
-		throw new DataViolationException("Email "+usuario.getEmail()+" já existe na base de dados");
+		throw new DataViolationException("Email "+usuarioDto.getEmail()+" já existe na base de dados");
 	}
 		
-		String SenhaBcryptografada = passwordEncoder.encode(usuario.getSenha());
-		usuario.setSenha(SenhaBcryptografada);
-		Usuario obj = usuarioRepository.save(usuario);
+		String SenhaBcryptografada = passwordEncoder.encode(usuarioDto.getSenha());
+		usuarioDto.setSenha(SenhaBcryptografada);
+		Usuario user = convertFromDto(usuarioDto);
+		Usuario obj = usuarioRepository.save(user);
 		
 		return obj;
 	}
@@ -66,6 +68,11 @@ public class UsuarioService implements UserDetailsService{
 		}
 	}
 	
-	
+public static Usuario convertFromDto(UsuarioDTO usuarioDto) {
+		
+		Usuario user = new Usuario(null,usuarioDto.getEmail(),usuarioDto.getSenha(),usuarioDto.isAdmin()); 
+		return user;
+		
+	}
 
 }
