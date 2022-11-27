@@ -1,7 +1,7 @@
 package com.rodrigohf.videoFlix.repositories;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -16,7 +16,7 @@ public interface VideoFlixRepository extends JpaRepository<Video, Long>{
 	
 	Video findByUrlIgnoreCase(String url);
 	
-	Page<VideoDTO> findByTituloIgnoreCaseContaining(@Param(value="search") String titulo, PageRequest page); 
+	Page<VideoDTO> findByTituloIgnoreCaseContaining(@Param(value="search") String titulo, Pageable paginacao); 
 	
 
 
