@@ -2,11 +2,9 @@ package com.rodrigohf.videoFlix;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class VideoflixApplication extends SpringBootServletInitializer {
+public class VideoflixApplication  {
 
 	
 
@@ -14,11 +12,7 @@ public class VideoflixApplication extends SpringBootServletInitializer {
 		SpringApplication.run(VideoflixApplication.class, args);
 	}
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		
-		return builder.sources(VideoflixApplication.class);
-	}
+	
 
 	
 }
