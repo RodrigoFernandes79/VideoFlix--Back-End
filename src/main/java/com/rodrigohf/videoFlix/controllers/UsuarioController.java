@@ -2,10 +2,10 @@ package com.rodrigohf.videoFlix.controllers;
 
 import javax.validation.Valid;
 
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ import com.rodrigohf.videoFlix.services.security.UsuarioService;
 import com.rodrigohf.videoFlix.services.security.jwt.JwtService;
 
 import lombok.RequiredArgsConstructor;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/usuarios")
 @RequiredArgsConstructor

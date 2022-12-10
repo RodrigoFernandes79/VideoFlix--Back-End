@@ -1,8 +1,6 @@
 package com.rodrigohf.videoFlix.DTOs;
 
-import javax.persistence.Column;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

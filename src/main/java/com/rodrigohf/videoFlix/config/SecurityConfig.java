@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.rodrigohf.videoFlix.services.security.UsuarioService;
 import com.rodrigohf.videoFlix.services.security.jwt.JwtAuthFilter;
@@ -74,7 +75,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			 .sessionManagement()
 			 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			 .and()
-			 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+			 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
+			 .cors(); //permissão para acesso do front end
+		     
+		      
 		
 	
 	}
@@ -92,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 "/webjars/**");
 		
 	}
+	
 	
 	
 
