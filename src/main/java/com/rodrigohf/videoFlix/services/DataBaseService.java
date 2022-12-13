@@ -31,7 +31,7 @@ public class DataBaseService {
 
 	public void instanciarDataBaseTestProfile() throws ParseException {
 		
-		Usuario user1 = new Usuario(null,"usuarioFlix@email.com",passwordEncoder.encode("Ab0brinh4@"), false);
+		Usuario user1 = new Usuario(null,"Rodrigo","usuarioFlix@email.com",passwordEncoder.encode("Ab0brinh4@"), false);
 		
 		
 		usuarioRepository.saveAll(Arrays.asList(user1));

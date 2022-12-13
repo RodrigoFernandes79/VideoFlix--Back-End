@@ -3,6 +3,7 @@ package com.rodrigohf.videoFlix.DTOs;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.rodrigohf.videoFlix.domains.Usuario;
 
@@ -14,6 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class UsuarioDTO {
+	@NotEmpty(message = "Nome do Usuário não pode ser vazio.")
+	@Size(min=5, max=20, message="Nome do Usuário deve ter entre 5 e 20 caracteres")
+	private String nome;
 
 	@Email(message ="Email inválido! Favor inserir um email válido.")
 	@NotEmpty(message = "O Campo EMAIL não pode ser vazio.")
@@ -30,6 +34,7 @@ public class UsuarioDTO {
 
 	public UsuarioDTO(Usuario usuario) {
 		super();
+		this.nome = usuario.getNome();
 		this.email = usuario.getEmail();
 		this.senha = usuario.getSenha();
 		this.admin = usuario.isAdmin();

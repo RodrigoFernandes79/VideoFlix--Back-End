@@ -70,7 +70,7 @@ public class UsuarioService implements UserDetailsService{
 	
 public static Usuario convertFromDto(UsuarioDTO usuarioDto) {
 		
-		Usuario user = new Usuario(null,usuarioDto.getEmail(),usuarioDto.getSenha(),usuarioDto.isAdmin()); 
+		Usuario user = new Usuario(null,usuarioDto.getNome(),usuarioDto.getEmail(),usuarioDto.getSenha(),usuarioDto.isAdmin()); 
 		return user;
 		
 	}
