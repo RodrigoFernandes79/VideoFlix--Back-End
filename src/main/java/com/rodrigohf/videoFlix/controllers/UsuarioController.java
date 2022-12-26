@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.rodrigohf.videoFlix.DTOs.CredenciaisDTO;
 import com.rodrigohf.videoFlix.DTOs.TokenDTO;
 import com.rodrigohf.videoFlix.DTOs.UsuarioDTO;
 import com.rodrigohf.videoFlix.domains.Usuario;
+import com.rodrigohf.videoFlix.repositories.UsuarioRepository;
 import com.rodrigohf.videoFlix.services.exceptions.SenhaInvalidaException;
 import com.rodrigohf.videoFlix.services.exceptions.UsernameNotFoundException;
 import com.rodrigohf.videoFlix.services.security.UsuarioService;
@@ -32,6 +34,7 @@ public class UsuarioController {
 	
 	private final JwtService jwtService;
 	
+	private final UsuarioRepository usuarioRepository;
 	
 	
 	@PostMapping
@@ -55,9 +58,12 @@ public class UsuarioController {
 					
 			
 			UserDetails usuarioAutenticado = usuarioService.autenticar(usuario);
+			 
 			
 			String token = jwtService.gerarTokenJwt(usuario);
-			return new TokenDTO(usuario.getEmail(), token);
+			Usuario obj = usuarioRepository.encontrarEmail(usuario.getEmail());
+			usuario.setNome(obj.getNome());
+			return new TokenDTO(usuario.getNome(),usuario.getEmail(), token);
 					
 		}catch(UsernameNotFoundException | SenhaInvalidaException e) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());

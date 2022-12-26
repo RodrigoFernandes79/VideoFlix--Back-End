@@ -12,6 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CredenciaisDTO {
 	
+
 	
 	private String email;
 	

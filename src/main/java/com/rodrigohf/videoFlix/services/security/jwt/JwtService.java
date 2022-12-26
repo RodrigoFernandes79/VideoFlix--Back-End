@@ -5,10 +5,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.rodrigohf.videoFlix.domains.Usuario;
+import com.rodrigohf.videoFlix.repositories.UsuarioRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -23,15 +25,22 @@ public class JwtService {
 
 	@Value("${security.jwt.chave-de-assinatura}")
 	private String chaveDeAssinatura;
-
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
 	public String gerarTokenJwt(Usuario usuario) {
 		Long expiraToken = Long.valueOf(expiracao);
 
 		LocalDateTime DataHoraExpiracao = LocalDateTime.now().plusMinutes(expiraToken);
 		Instant instante = DataHoraExpiracao.atZone(ZoneId.systemDefault()).toInstant();
 		Date data = Date.from(instante);
-
-		return Jwts.builder().setSubject(usuario.getEmail()).setExpiration(data)
+		Usuario user = usuarioRepository.encontrarEmail(usuario.getEmail());
+		return Jwts.builder()
+				.setSubject(usuario.getEmail())
+				.setExpiration(data)
+				.claim("email",usuario.getEmail())
+				.claim("nome",user.getNome())
 				.signWith(SignatureAlgorithm.HS512, chaveDeAssinatura).compact();
 	}
 
@@ -58,7 +67,12 @@ public class JwtService {
 
 	// método para saber quem é o usuário que vai estar logado e que mandou o token
 	public String obterLoginUsuario(String token) throws ExpiredJwtException {
-		return obterClaims(token).getSubject();
+		return obterClaims(token)
+				.getSubject();
+		
+				
 	}
+	
+	
 
 }

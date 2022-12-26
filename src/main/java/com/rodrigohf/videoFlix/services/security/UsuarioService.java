@@ -35,11 +35,12 @@ public class UsuarioService implements UserDetailsService{
 		 String[] roles = usuario.isAdmin() ? new String[] {"ADMIN","USER"} : new String[] {"USER"}; 
 		 
 		return User
-				.builder()
+				.withUsername(usuario.getNome())
 				.username(usuario.getEmail())
 				.password(usuario.getSenha())
 				.roles(roles)
 				.build();
+				
 	}
 	
 	@Transactional
@@ -74,5 +75,7 @@ public static Usuario convertFromDto(UsuarioDTO usuarioDto) {
 		return user;
 		
 	}
+
+
 
 }
