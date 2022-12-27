@@ -34,8 +34,7 @@ public class UsuarioService implements UserDetailsService{
 		
 		 String[] roles = usuario.isAdmin() ? new String[] {"ADMIN","USER"} : new String[] {"USER"}; 
 		 
-		return User
-				.withUsername(usuario.getNome())
+		return User.builder()
 				.username(usuario.getEmail())
 				.password(usuario.getSenha())
 				.roles(roles)
