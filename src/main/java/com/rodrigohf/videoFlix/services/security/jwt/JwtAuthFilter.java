@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -41,7 +42,7 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 		if(authorization !=null && authorization.startsWith("Bearer")) {
 			String token = authorization.split(" ")[1];
 			boolean isValido = jwtService.tokenIsValido(token);
-
+			
 			if(isValido) {
 				String loginUsuario = jwtService.obterLoginUsuario(token);
 				UserDetails usuario = usuarioService.loadUserByUsername(loginUsuario);
@@ -53,11 +54,12 @@ public class JwtAuthFilter extends OncePerRequestFilter{
 
 				user.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(user);
+				
 			}
 		}
 		filterChain.doFilter(request, response);
-	
+		
 		
 	}
-
+	
 }

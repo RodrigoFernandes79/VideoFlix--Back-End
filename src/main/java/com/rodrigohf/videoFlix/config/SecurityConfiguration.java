@@ -2,10 +2,11 @@ package com.rodrigohf.videoFlix.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,15 +15,21 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import com.rodrigohf.videoFlix.services.security.UsuarioService;
 import com.rodrigohf.videoFlix.services.security.jwt.JwtAuthFilter;
 import com.rodrigohf.videoFlix.services.security.jwt.JwtService;
 
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+@SuppressWarnings("deprecation")
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity  // configurando a anotação @PreAuthorize para permitir acesso somente para admins
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Lazy
 	@Autowired
@@ -55,8 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//autorização para uma determinada pagina.Quem tem acesso ao quê:
-		http
-		.csrf().disable()
+		http.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/videos/**")
 		.hasAnyRole("USER","ADMIN")
@@ -71,16 +77,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers(HttpMethod.POST, "/usuarios/**")
 		.permitAll()
 		.anyRequest().authenticated()
+		.and().httpBasic()
 		.and()
 			 .sessionManagement()
-			 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			 .and()
-			 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class)
-			 .cors(); //permissão para acesso do front end
-		     
-		      
-		
+			 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			 
+			 http.cors().and().csrf().disable();	  //permissão para acesso do front end
+			 
+			 
+			 http.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+			 
+		   
+	}
 	
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		return source;
+		
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class UsuarioService implements UserDetailsService{
 		 Usuario usuario = usuarioRepository.findByEmail(email)
 			.orElseThrow(() -> new UsernameNotFoundException("Usuário "+email+" não encontrado"));
 		
-		 String[] roles = usuario.isAdmin() ? new String[] {"ADMIN","USER"} : new String[] {"USER"}; 
+		 String[] roles = usuario.isAdmin() ? new String[] {"ADMIN"} : new String[] {"USER"}; 
 		 
 		return User.builder()
 				.username(usuario.getEmail())

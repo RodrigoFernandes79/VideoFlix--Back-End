@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -63,7 +62,7 @@ public class UsuarioController {
 			String token = jwtService.gerarTokenJwt(usuario);
 			Usuario obj = usuarioRepository.encontrarEmail(usuario.getEmail());
 			usuario.setNome(obj.getNome());
-			return new TokenDTO(usuario.getNome(),usuario.getEmail(), token);
+			return new TokenDTO(usuario.getNome(),usuarioAutenticado.getUsername(), token);
 					
 		}catch(UsernameNotFoundException | SenhaInvalidaException e) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
