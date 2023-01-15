@@ -44,19 +44,24 @@ public class DataBaseService {
 		catRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5));
 
 		Video vid1 = new Video(null, "Guns N Roses Nightrain Legendado", "Rock n Roll anos 90",
-				"https://www.youtube.com/watch?v=7EPXGZLSmUs", cat2);
+				"https://www.youtube.com/embed/7EPXGZLSmUs", cat2);
 
 		Video vid2 = new Video(null, "Counting Crows - Mr. Jones (Official Music Video)", "Rock n Roll anos 90",
-				"https://www.youtube.com/watch?v=-oqAU5VxFWs", cat2);
+				"https://www.youtube.com/embed/-oqAU5VxFWs", cat2);
 
 		Video vid3 = new Video(null, "O que Lula disse sobre mensalão e petrolão", "BBC News Brasil",
-				"https://www.youtube.com/watch?v=RjebOJ13Sf8", cat5);
+				"https://www.youtube.com/embed/RjebOJ13Sf8", cat5);
 
 		Video vid4 = new Video(null,
-				"CONVOCAÇÃO DA SELEÇÃO AO VIVO! VEJA A LISTA DE TITE PARA A COPA DO MUNDO NO CATAR",
-				"TNT Sports Brasil", "https://www.youtube.com/watch?v=JYJj7sIrvS4", cat3);
+				"CONVOCAÇÃO DA SELEÇÃO! VEJA A LISTA DE TITE PARA A COPA DO MUNDO NO CATAR",
+				"TNT Sports Brasil", "https://www.youtube.com/embed/JYJj7sIrvS4", cat3);
+		
+		Video vid5 = new Video(null,
+				"Curso Angular 9 #10 Renderizando dados no HTML",
+				 "Michelli Brito", "https://www.youtube.com/embed/AeoxDGhsmQE",
+				 cat5);
 
-		videoFlixRepository.saveAll(Arrays.asList(vid1, vid2, vid3, vid4));
+		videoFlixRepository.saveAll(Arrays.asList(vid1, vid2, vid3, vid4, vid5));
 
 	}
 }
