@@ -37,8 +37,9 @@ public class VideoFlixController {
 	
 	@GetMapping
 	public ResponseEntity<Page<VideoDTO>> buscarVideos(
+			
 			@RequestParam(value="page",defaultValue= "0")Integer page,
-			@RequestParam(value="linesPerPage",defaultValue = "24") Integer linesPerPage,
+			@RequestParam(value="linesPerPage",defaultValue = "6") Integer linesPerPage,
 			@RequestParam(value="orderBy",defaultValue = "titulo") String orderBy,
 			@RequestParam(value="direction",defaultValue = "ASC") String direction){
 		Page<VideoDTO> obj = videoFlixService.buscarVideos(page,linesPerPage,orderBy,direction);

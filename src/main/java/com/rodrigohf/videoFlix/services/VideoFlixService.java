@@ -109,9 +109,9 @@ public class VideoFlixService {
 
 public static Page<VideoDTO> ConvertToDTO(Page<Video> videos) {
 		
-		List<VideoDTO> videosDTO =   videos.stream().map(VideoDTO::new).collect(Collectors.toList());
+		Page<VideoDTO> videosDTO =   videos.map(VideoDTO::new);
 		
-		return new PageImpl<>(videosDTO);
+		return videosDTO;
 		
 	}
 	
