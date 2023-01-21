@@ -43,7 +43,7 @@ public class VideoFlixService {
 	}
 	
 	public  Video inserirVideo(Video video) {
-		Video findUrl = videoFlixRepository.findByUrlIgnoreCase(video.getUrl());
+		Video findUrl = videoFlixRepository.findByUrl(video.getUrl());
 		Video findTitulo = videoFlixRepository.findByTituloIgnoreCase(video.getTitulo());
 		if(findUrl != null ) {
 			throw new DataViolationException("Url "+video.getUrl()+" Já existe no Banco de dados.");
