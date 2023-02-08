@@ -10,9 +10,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.web.servlet.response.SecurityMockMvcResultHandlers;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @RunWith(SpringRunner.class)
@@ -25,7 +27,7 @@ class UsuarioControllerTest {
 	private MockMvc mockMvc; // mockando o metodo simulando um postman e irá disparar a requisiçao
 	
 	@Test
-	void deveriaRetornarUmaExceptionUnauthorizedCasoDadosDeAutenticacaoEstejamIncorretos() throws Exception {
+	void deveriaRetornarUmaException400CasoDadosDeAutenticacaoEstejamIncorretos() throws Exception {
 		
 		URI uri = new URI("/usuarios/auth");
 		
@@ -39,7 +41,7 @@ class UsuarioControllerTest {
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(400));
-				 //verifica se o status é UNAUTORIZED
+				 
 	}
 
 }

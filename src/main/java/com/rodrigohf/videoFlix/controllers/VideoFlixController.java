@@ -1,7 +1,5 @@
 package com.rodrigohf.videoFlix.controllers;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 

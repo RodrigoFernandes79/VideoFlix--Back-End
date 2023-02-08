@@ -66,6 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/videos/**")
 		.hasAnyRole("USER","ADMIN")
+		.antMatchers(HttpMethod.POST,"/videos/**")
+		.hasAnyRole("USER","ADMIN")
 		.antMatchers(HttpMethod.GET, "/categorias/**")
 		.hasAnyRole("USER","ADMIN")
 		.antMatchers(HttpMethod.POST,"/categorias/**")
